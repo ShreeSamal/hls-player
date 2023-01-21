@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import ReactHlsPlayer from "@panelist/react-hls-player";
 function App() {
+  const query = new URLSearchParams(window.location.search);
+  const src = query.get("src");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="screen">
+      <div>
+        <hr />
+
+        <div>
+          <div className="displayMovie">
+            <section className="">
+
+              <div id="player">
+                <ReactHlsPlayer
+                  src={src}
+                  autoPlay={false}
+                  controls={true}
+                  width="100%"
+                />
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
