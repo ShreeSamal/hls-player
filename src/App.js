@@ -1,33 +1,24 @@
-import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import ReactHlsPlayer from "@panelist/react-hls-player";
-function App() {
+import React, { useState, useEffect } from "react";
+import { useRef } from "react";
+import ReactPlayer from "react-player";
+
+export default function App() {
   const query = new URLSearchParams(window.location.search);
   const src = query.get("src");
-
+  const timestamp = query.get("timestamp");
+  let p = useRef();
   return (
-    <div className="screen">
-      <div>
-        <hr />
-
-        <div>
-          <div className="displayMovie">
-            <section className="">
-
-              <div id="player">
-                <ReactHlsPlayer
-                  src={src}
-                  autoPlay={false}
-                  controls={true}
-                  width="100%"
-                />
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
+      <div className="App" >
+      <ReactPlayer
+      onReady={() => p.current.seekTo(timestamp?timestamp:0)}
+         ref={p}
+        url={src}
+        className="react-player"
+        playing
+        controls
+        width="100%"
+        height="100%"
+      />
     </div>
   );
 }
-
-export default App;
